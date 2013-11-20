@@ -11,6 +11,178 @@ and open the template in the editor.
     <body>
         <div>
             <h1>Spam Bayes Help</h1>
+            
+<p>
+This plugin will add Spam bayesian filtering to your weblog. This can be an 
+effective tool to fight Comment and Trackback spam. However you need to 
+understand the basic principles before you should consider using this plugin. 
+Spam Bayesian is not the answer to every spam problem. 
+The first problem you will encounter is the need for a trained filter. And only 
+you can train your filter effectively. That&#039;s why this plugin does not 
+come with any filters pre-installed. I considered this but it&#039;s impossible 
+to determine whether you would consider some words as spam or not. 
+</p>
+
+
+
+<h2 class="sectionedit3"><a name="spam_bayesian_the_principles" id="spam_bayesian_the_principles">Spam 
+        bayesian the principles</a></h2>
+
+
+<p>
+So let&#039;s see what Spam bayesian can do for you. Consider that you have 
+trained your filter. The plugin provides some tools to feed the filter with 
+both &#039;ham&#039; and &#039;spam&#039;
+<sup><a href="#fn__1" name="fnt__1" id="fnt__1" class="fn_top">1)</a></sup>. 
+</p>
+
+<p>
+What happens when Spam Bayes receives a message for checking? It determines two 
+probabilities. The first is whether the message could be considered ham, based on 
+word frequencies. Second it considers whether the message could be considered 
+spam again based on word frequencies. That&#039;s why you need to train 
+SpamBayes with both ham and spam messages. The word frequencies can only be 
+determined after you taught it enough words to determine the most likely 
+category the message belongs to.
+</p>
+
+</div>
+
+<h2 class="sectionedit4"><a name="spam_bayes_trainig" id="spam_bayes_trainig">Spam 
+        Bayes trainig</a></h2>
+
+
+<p>
+You should be aware by now of the importance of training. After installation the 
+plugin menu shows you an option to train all available comments as ham 
+<strong>&#039;Train HAM (not spam) with all comments&#039;</strong>. You can 
+use this option to feed the filter all your available comments as ham. Make sure 
+you don&#039;t have any spam comments on your site otherwise you will feed the 
+filter the wrong messages as ham. 
+</p>
+
+<p>
+You can undo this action with the option <strong>&#039;Remove all comments from 
+    the HAM (not spam)&#039;</strong>.
+</p>
+
+<p>
+Once you&#039;ve trained your filter with your comments you can remove the menu 
+item from the list so you won&#039;t accidently click this option again. To do 
+this choose <strong>&#039;Spam Bayes Options&#039;</strong> from the menu and 
+set <strong>&#039;Show SpamBayes train all ham in menu?&#039;</strong> to 
+<strong>no</strong>.
+
+</p>
+
+<p>
+At this moment there are two ways to train your filter with spam messages. 
+</p>
+<ol>
+<li class="level1">
+    The most important one is <strong>Spam Bayes training</strong> in the menu. 
+    You can put any text you like in the textarea and tell the filter what type 
+    of message you are feeding it.
+
+</li>
+<li class="level1">The second option is only available if you have have logging 
+    enabled. The overview of logged events will show two links beside the event 
+    logged. One for training ham and one for training spam. 
+</li>
+</ol>
+
+<p>
+If you accidently choose the wrong category for a training session you can undo 
+this. Choose <strong>Spam Bayes untraining</strong> from the menu. You&#039;ll 
+see all trained messages (except the trained comments which are invisible in the 
+overview. You can untrain those as explained earlier). When you want a document 
+untrained simply click on the link <strong>untrain</strong> and the document is 
+deleted from the list and all the word counts are updated to reflect the 
+untraining of the document.
+</p>
+
+
+
+<h2 class="sectionedit5"><a name="spam_bayes_logging" id="spam_bayes_logging">Spam 
+        Bayes logging</a></h2>
+
+
+<p>
+When enabled (defaults to <strong>no</strong>) all events that are captured by 
+the plugin are logged. This logging is done in a separate database table and 
+contains all the information that the plugin receives. You can view the events 
+from the administration interface. The view is limited to 10 events per page. 
+Each logged event has two handy links to train either spam or ham. That way you 
+can quickly train the filter if a message is considered spam when it isn&#039;t 
+or when a message is considered ham and it isn&#039;t.
+</p>
+
+<p>
+<em class="u">Remember</em> that although Spam Bayes might capture spam events, 
+they are not automaticly added to the filter. So even if Spam Bayes did a 
+correct categorisation it is still a good idea to feed the filter some of the 
+correct guesses as well.
+</p>
+
+
+
+<h2 class="sectionedit6"><a name="spam_bayes_options" id="spam_bayes_options">Spam 
+        Bayes Options</a></h2>
+
+
+<p>
+There are a couple of options available for this plugin.
+</p>
+<ul>
+<li class="level1"> <strong>Score at which point we should 
+            consider a text as spam?</strong> This sets the score that is needed 
+            to determine wheter a message is considered spam.
+</li>
+<li class="level1"> <strong>To which 
+            <acronym title="Uniform Resource Locator">URL</acronym> should 
+            spammers be redireted?</strong> If a message is posted and 
+            considered spam, Spam Bayes will redirect the spammer to 
+            this <acronym title="Uniform Resource Locator">URL</acronym>. 
+Defaults to http://127.0.0.1/ You could redirect them to 
+http://yoursite.com/explain.htm and explain on that page what happened. 
+</li>
+<li class="level1"> <strong>Which words should not be taken into 
+        consideration?</strong> This is a list of common words and words that 
+        would lead to false positives. On my site for example I had a lot of 
+        spamming for <strong>.org</strong> domains. This led the filter to 
+        believe that all .org domains should be considered spam. Adding 
+        &#039;org&#039; to the ignore list resolved this issue.
+</li>
+<li class="level1"> <strong>Show SpamBayes train all ham in menu?</strong> If 
+    this option is enabled (default) there are two extra menu items available for 
+    Spam Bayes. Giving you the option to submit all available comments on your 
+    weblog as HAM messages. When set to <strong>no</strong> the menu options 
+    won&#039;t be visible.
+</li>
+<li class="level1"> <strong>Show SpamBayes in quickmenu?</strong> If set to yes, 
+    Spam Bayes will show up in the left menu of your Nucleus Administration 
+    giving you a quick easy access to the Spam Bayes administration. Default: 
+    <strong>no</strong>
+</li>
+<li class="level1"> <strong>Use SpamBayes action logging?</strong> If set to 
+    yes, Spam Bayes will log all it&#039;s actions to the database. This is a 
+    very convenient option but it can be harmful. When a spamrun hits your site 
+    a lot of MySQL queries are done for Spam Bayes. Logging intensifies this 
+    MySQL usage. The second downside of this option is space. The complete 
+    message is stored when logging is done. So a big spamrun could easily add 
+    10MB of data to your database. (You can of course clear the log from the 
+    administration interface). Defaults to <strong>no</strong>. 
+</li>
+</ul>
+
+
+            
+            
+            
+            
+            
+            
+            
             <pre>
 
 BUG LIST
