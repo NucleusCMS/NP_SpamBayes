@@ -56,7 +56,7 @@ class NP_SpamBayes extends NucleusPlugin {
         $this->table_ref = sql_table('plug_sb_ref'); // references
         $this->table_log = sql_table('plug_sb_log'); // logging
         include_once($DIR_PLUGINS."spambayes/spambayes.php");
-        $this->spambayes = new NaiveBayesian(&$this);
+        $this->spambayes = new NaiveBayesian($this);
     }
 
     /* some default functions for a plugin */
@@ -96,7 +96,7 @@ class NP_SpamBayes extends NucleusPlugin {
 
     function event_ValidateForm(&$data) {
         $this->logevent = 'event ValidateForm';
-        $this->event_PreAddComment(&$data);
+        $this->event_PreAddComment($data);
     }
 
     function event_SpamCheck (&$data) {
