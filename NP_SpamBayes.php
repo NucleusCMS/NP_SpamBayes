@@ -40,9 +40,6 @@
  * http://www-128.ibm.com/developerworks/web/library/wa-bayes1/?ca=dgr-lnxw961Bayesian
  */
 
-if (!function_exists('sql_table')) {
-       function sql_table($name) {    return 'nucleus_' . $name; }
-}
 if (! function_exists(redirect) ) {
     function redirect($url) {
         $url = preg_replace('|[^a-z0-9-~+_.?#=&;,/:@%]|i', '', $url);
@@ -65,26 +62,13 @@ class NP_SpamBayes extends NucleusPlugin {
     /* some default functions for a plugin */
     function getName()        { return 'SpamBayes'; }
     function getAuthor()      { return 'xiffy & Lord Matt'; }
-    function getURL()         { return 'http://wakka.xiffy.nl/spambayes'; }
+    function getURL()         { return 'https://github.com/NucleusCMS/NP_SpamBayes'; }
     function getVersion()     { return '1.2.0b'; }
     function getDescription() { return 'SpamBayes filter for comment and trackback spam. In adherence with Spam API 1.0 for Nucleus';    }
-    function supportsFeature($what) {
-        switch($what) {
-            case 'SqlTablePrefix':
-                return 1;
-                    case 'HelpPage':
-                        return 1;
-            default:
-                return 0;
-        }
-    }
-    function getEventList() {
-        return array('QuickMenu','PreAddComment','PreActionAddComment','ValidateForm', 'SpamCheck');
-    }
+    function supportsFeature($what) { return in_array($what,array('SqlTablePrefix','HelpPage'));}
+    function getEventList()   { return array('QuickMenu','PreAddComment','PreActionAddComment','ValidateForm', 'SpamCheck');}
 
-    function hasAdminArea() {
-        return 1;
-    }
+    function hasAdminArea()   { return 1;}
 
     /* Where the action is! */
     function event_PreAddComment(&$data) {
